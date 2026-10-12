@@ -241,6 +241,13 @@
             display: none;
         }
 
+        .file-name-display {
+            font-size: 0.85rem;
+            color: var(--secondary-green);
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
         .team-box-container {
             background: var(--light-green);
             padding: 1.5rem;
@@ -300,7 +307,7 @@
 
         .id-card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
@@ -335,6 +342,25 @@
 
         .id-body p strong {
             color: var(--secondary-green);
+        }
+
+        .card-img-preview {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .card-img-preview div {
+            flex: 1;
+            text-align: center;
+        }
+
+        .card-img-preview img {
+            width: 100%;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
         }
 
         .modal-overlay {
@@ -455,6 +481,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label>ژمارەی کارتی دەنگدان:</label>
+                        <input type="text" name="voterCardNumber" required placeholder="ژمارەی کارتی دەنگدان بنووسە...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>بنکەی دەنگدان:</label>
+                        <input type="text" name="voterStation" required placeholder="ناوی بنکەی دەنگدان بنووسە...">
+                    </div>
+
+                    <div class="form-group">
                         <label>جۆری ئەندامی:</label>
                         <select name="memberType" id="orgMemberType" onchange="toggleTeamBox('org')" required>
                             <option value="">هەڵبژێرە...</option>
@@ -489,17 +525,19 @@
                     <div class="form-group">
                         <label>وێنەی پێشەوەی کارتی دەنگدان:</label>
                         <div class="file-upload-box" onclick="this.querySelector('input').click()">
-                            <i class="fa-solid fa-id-card"></i> وێنە هەڵبژێرە
-                            <input type="file" accept="image/*" required>
+                            <i class="fa-solid fa-id-card"></i> وێنەی پێشەوە هەڵبژێرە
+                            <input type="file" id="orgFrontCard" accept="image/*" required onchange="previewFileName(this, 'orgFrontName')">
                         </div>
+                        <div id="orgFrontName" class="file-name-display"></div>
                     </div>
 
                     <div class="form-group">
                         <label>وێنەی دواوەی کارتی دەنگدان:</label>
                         <div class="file-upload-box" onclick="this.querySelector('input').click()">
-                            <i class="fa-solid fa-id-card"></i> وێنە هەڵبژێرە
-                            <input type="file" accept="image/*" required>
+                            <i class="fa-solid fa-id-card"></i> وێنەی دواوە هەڵبژێرە
+                            <input type="file" id="orgBackCard" accept="image/*" required onchange="previewFileName(this, 'orgBackName')">
                         </div>
+                        <div id="orgBackName" class="file-name-display"></div>
                     </div>
 
                     <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> داخل کردن و سەیڤکردن</button>
@@ -528,6 +566,16 @@
                     <div class="form-group">
                         <label>ژمارە تەلەفۆن (واتس ئەپ):</label>
                         <input type="tel" name="phone" required placeholder="٠٧٧٠xxxxxxx">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ژمارەی کارتی دەنگدان:</label>
+                        <input type="text" name="voterCardNumber" required placeholder="ژمارەی کارتی دەنگدان بنووسە...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>بنکەی دەنگدان:</label>
+                        <input type="text" name="voterStation" required placeholder="ناوی بنکەی دەنگدان بنووسە...">
                     </div>
 
                     <div class="form-group">
@@ -600,17 +648,19 @@
                     <div class="form-group">
                         <label>وێنەی پێشەوەی کارتی دەنگدان:</label>
                         <div class="file-upload-box" onclick="this.querySelector('input').click()">
-                            <i class="fa-solid fa-id-card"></i> وێنە هەڵبژێرە
-                            <input type="file" accept="image/*" required>
+                            <i class="fa-solid fa-id-card"></i> وێنەی پێشەوە هەڵبژێرە
+                            <input type="file" id="uniFrontCard" accept="image/*" required onchange="previewFileName(this, 'uniFrontName')">
                         </div>
+                        <div id="uniFrontName" class="file-name-display"></div>
                     </div>
 
                     <div class="form-group">
                         <label>وێنەی دواوەی کارتی دەنگدان:</label>
                         <div class="file-upload-box" onclick="this.querySelector('input').click()">
-                            <i class="fa-solid fa-id-card"></i> وێنە هەڵبژێرە
-                            <input type="file" accept="image/*" required>
+                            <i class="fa-solid fa-id-card"></i> وێنەی دواوە هەڵبژێرە
+                            <input type="file" id="uniBackCard" accept="image/*" required onchange="previewFileName(this, 'uniBackName')">
                         </div>
+                        <div id="uniBackName" class="file-name-display"></div>
                     </div>
 
                     <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> داخل کردن و سەیڤکردن</button>
@@ -639,6 +689,16 @@
                     <div class="form-group">
                         <label>ژمارە تەلەفۆن (واتس ئەپ):</label>
                         <input type="tel" name="phone" required placeholder="٠٧٧٠xxxxxxx">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ژمارەی کارتی دەنگدان:</label>
+                        <input type="text" name="voterCardNumber" required placeholder="ژمارەی کارتی دەنگدان بنووسە...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>بنکەی دەنگدان:</label>
+                        <input type="text" name="voterStation" required placeholder="ناوی بنکەی دەنگدان بنووسە...">
                     </div>
 
                     <div class="form-group">
@@ -700,17 +760,19 @@
                     <div class="form-group">
                         <label>وێنەی پێشەوەی کارتی دەنگدان:</label>
                         <div class="file-upload-box" onclick="this.querySelector('input').click()">
-                            <i class="fa-solid fa-id-card"></i> وێنە هەڵبژێرە
-                            <input type="file" accept="image/*" required>
+                            <i class="fa-solid fa-id-card"></i> وێنەی پێشەوە هەڵبژێرە
+                            <input type="file" id="schoolFrontCard" accept="image/*" required onchange="previewFileName(this, 'schoolFrontName')">
                         </div>
+                        <div id="schoolFrontName" class="file-name-display"></div>
                     </div>
 
                     <div class="form-group">
                         <label>وێنەی دواوەی کارتی دەنگدان:</label>
                         <div class="file-upload-box" onclick="this.querySelector('input').click()">
-                            <i class="fa-solid fa-id-card"></i> وێنە هەڵبژێرە
-                            <input type="file" accept="image/*" required>
+                            <i class="fa-solid fa-id-card"></i> وێنەی دواوە هەڵبژێرە
+                            <input type="file" id="schoolBackCard" accept="image/*" required onchange="previewFileName(this, 'schoolBackName')">
                         </div>
+                        <div id="schoolBackName" class="file-name-display"></div>
                     </div>
 
                     <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> داخل کردن و سەیڤکردن</button>
@@ -728,7 +790,7 @@
                 <h2 style="color: var(--primary-green);"><i class="fa-solid fa-shield-halved"></i> شوێنی پارێزراوی سەیڤکردنی داتا (هەویەی ئەندامان)</h2>
                 <button class="back-nav-btn" onclick="goHome()"><i class="fa-solid fa-arrow-right"></i> گەڕانەوە بۆ سەرەتا</button>
             </div>
-            <p style="color: var(--gray); margin-bottom: 1rem;">لێرەدا سەرجەم فۆرمە پڕکراوەکان وەکو هەویە (Digital ID Card) پاشەکەوت کراون:</p>
+            <p style="color: var(--gray); margin-bottom: 1rem;">لێرەدا سەرجەم فۆرمە پڕکراوەکان وەکو هەویە (Digital ID Card) بە وێنەکانەوە پاشەکەوت کراون:</p>
             
             <div id="idCardsContainer" class="id-card-grid">
                 <!-- Dynamically injected ID cards -->
@@ -811,7 +873,23 @@
             }
         }
 
-        function handleFormSubmit(event, formCategory) {
+        function previewFileName(input, displayId) {
+            const displayEl = document.getElementById(displayId);
+            if (input.files && input.files[0]) {
+                displayEl.innerText = "✓ " + input.files[0].name;
+            }
+        }
+
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        async function handleFormSubmit(event, formCategory) {
             event.preventDefault();
             const formEl = event.target;
             const formData = new FormData(formEl);
@@ -827,7 +905,18 @@
                 }
             });
 
-            // If team leader selected, check if team list has at least 10 entries
+            const fileInputs = formEl.querySelectorAll('input[type="file"]');
+            try {
+                if (fileInputs[0] && fileInputs[0].files[0]) {
+                    dataObj.frontCardImg = await getBase64(fileInputs[0].files[0]);
+                }
+                if (fileInputs[1] && fileInputs[1].files[0]) {
+                    dataObj.backCardImg = await getBase64(fileInputs[1].files[0]);
+                }
+            } catch (err) {
+                console.error("Image processing error:", err);
+            }
+
             if (dataObj.memberType === 'سەرۆک تیم') {
                 const teamText = dataObj.teamMembers || '';
                 const lines = teamText.split('\n').filter(l => l.trim().length > 0);
@@ -838,10 +927,18 @@
             }
 
             submissions.push(dataObj);
-            localStorage.setItem('elevate_submissions', JSON.stringify(submissions));
+            try {
+                localStorage.setItem('elevate_submissions', JSON.stringify(submissions));
+            } catch (e) {
+                alert('قەبارەی وێنەکان گەورەیە، تکایە وێنەی بچووکتر هەڵبژێرە.');
+                submissions.pop();
+                return;
+            }
+
             updateCounter();
 
             formEl.reset();
+            formEl.querySelectorAll('.file-name-display').forEach(el => el.innerText = '');
             goHome();
             
             const alertBox = document.getElementById('successAlert');
@@ -895,6 +992,8 @@
                     <div class="id-body">
                         <p><strong>ناوی سیانی:</strong> ${item.fullName || '-'}</p>
                         <p><strong>تەلەفۆن:</strong> ${item.phone || '-'}</p>
+                        <p><strong>ژمارەی کارتی دەنگدان:</strong> ${item.voterCardNumber || '-'}</p>
+                        <p><strong>بنکەی دەنگدان:</strong> ${item.voterStation || '-'}</p>
                         <p><strong>جۆری ئەندامی:</strong> ${item.memberType || '-'}</p>
                         ${item.university ? `<p><strong>زانکۆ/پەیمانگا:</strong> ${item.university}</p>` : ''}
                         ${item.schoolName ? `<p><strong>ناوی ئامادەیی:</strong> ${item.schoolName}</p>` : ''}
@@ -906,6 +1005,17 @@
                         <p><strong>کاری پێشتر:</strong> ${item.prevWork || '-'}</p>
                         <p><strong>بەڕێکەوت:</strong> ${item.date || '-'}</p>
                         ${item.memberType === 'سەرۆک تیم' ? `<hr style="margin:8px 0; border:0; border-top:1px dashed #2d6a4f;"><p style="font-size:0.85rem;"><strong>تیمی ١٠ کەسی:</strong><br><span style="white-space: pre-wrap; font-size:0.8rem;">${item.teamMembers}</span></p>` : ''}
+                        
+                        <div class="card-img-preview">
+                            <div>
+                                <p style="font-size:0.75rem; margin-bottom:2px;">پێشەوەی کارتی دەنگدان</p>
+                                ${item.frontCardImg ? `<img src="${item.frontCardImg}" alt="Front Card">` : '<span style="font-size:0.75rem;">بوونی نییە</span>'}
+                            </div>
+                            <div>
+                                <p style="font-size:0.75rem; margin-bottom:2px;">دواوەی کارتی دەنگدان</p>
+                                ${item.backCardImg ? `<img src="${item.backCardImg}" alt="Back Card">` : '<span style="font-size:0.75rem;">بوونی نییە</span>'}
+                            </div>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
