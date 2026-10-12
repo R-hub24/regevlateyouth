@@ -71,14 +71,22 @@
             margin-bottom: 0.2rem;
         }
 
+        .counters-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
         .counter-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(255, 255, 255, 0.15);
-            padding: 8px 18px;
+            padding: 6px 14px;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
@@ -426,9 +434,20 @@
     <header>
         <div class="ey-logo">EY</div>
         <h1>بەخێربێن بۆ پێگەی سەرەکی بەشی گەنجانی مەلبەندی ١ی سلێمانی</h1>
-        <div class="counter-badge">
-            <i class="fa-solid fa-users"></i>
-            ژمارەی ئەندامە تۆمارکراوەکان: <span id="totalSubmissionsCount">٠</span> ئەندام
+        
+        <div class="counters-wrapper">
+            <div class="counter-badge">
+                <i class="fa-solid fa-sitemap"></i>
+                بەشی رێکخستن: <span id="countOrg">٠</span>
+            </div>
+            <div class="counter-badge">
+                <i class="fa-solid fa-graduation-cap"></i>
+                زانکۆ و پەیمانگا: <span id="countUni">٠</span>
+            </div>
+            <div class="counter-badge">
+                <i class="fa-solid fa-school"></i>
+                ئامادەییەکان: <span id="countSchool">٠</span>
+            </div>
         </div>
     </header>
 
@@ -819,7 +838,7 @@
     <script>
         // Load submissions from localStorage or empty array
         let submissions = JSON.parse(localStorage.getItem('elevate_submissions') || '[]');
-        updateCounter();
+        updateCounters();
 
         function switchView(viewId) {
             document.getElementById('homeView').style.display = 'none';
@@ -935,7 +954,7 @@
                 return;
             }
 
-            updateCounter();
+            updateCounters();
 
             formEl.reset();
             formEl.querySelectorAll('.file-name-display').forEach(el => el.innerText = '');
@@ -948,8 +967,20 @@
             }, 5000);
         }
 
-        function updateCounter() {
-            document.getElementById('totalSubmissionsCount').innerText = submissions.length.toLocaleString('en-US');
+        function updateCounters() {
+            let countOrg = 0;
+            let countUni = 0;
+            let countSchool = 0;
+
+            submissions.forEach(item => {
+                if (item.category === 'بەشی رێکخستن') countOrg++;
+                else if (item.category === 'هۆبەی زانکۆ و پەیمانگاکان') countUni++;
+                else if (item.category === 'هۆبەی ئامادەییەکان') countSchool++;
+            });
+
+            document.getElementById('countOrg').innerText = countOrg.toLocaleString('en-US');
+            document.getElementById('countUni').innerText = countUni.toLocaleString('en-US');
+            document.getElementById('countSchool').innerText = countSchool.toLocaleString('en-US');
         }
 
         function openAdminPasswordModal() {
